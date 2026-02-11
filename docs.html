@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDN INFINIA Multimodal Semantic Search - Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #000;
+            background: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #000;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid #000;
+        }
+
+        th {
+            background: #000;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+
+        code {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85em;
+            background: #f5f5f5;
+            padding: 0.15em 0.4em;
+            border: 1px solid #ddd;
+        }
+
+        pre {
+            background: #000;
+            color: #fff;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        ul, ol {
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            font-weight: 600;
+        }
+
+        .tree {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85rem;
+            background: #f5f5f5;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            margin: 1rem 0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2rem 0;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #000;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        @media print {
+            body { padding: 0; }
+            pre { white-space: pre-wrap; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DDN INFINIA Multimodal Semantic Search</h1>
+        <p class="subtitle">AI-powered semantic search across images, videos, and documents using NVIDIA CLIP/BLIP models</p>
+    </header>
+
+    <section class="section">
+        <h2>Overview</h2>
+        <p>This demo showcases DDN INFINIA high-performance storage combined with NVIDIA's vision-language AI models for enterprise multimodal search applications. Upload content, and search across all media types using natural language queries.</p>
+
+        <h3>Key Features</h3>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Image Search</td>
+                <td>CLIP embeddings + BLIP captions for semantic understanding</td>
+            </tr>
+            <tr>
+                <td>Video Search</td>
+                <td>Frame extraction and scene analysis</td>
+            </tr>
+            <tr>
+                <td>Document Search</td>
+                <td>PDF/DOCX extraction with AI summarization</td>
+            </tr>
+            <tr>
+                <td>Natural Language</td>
+                <td>Search using descriptive queries, not just keywords</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="section">
+        <h2>Quick Start</h2>
+
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Python 3.9+</li>
+            <li>Node.js 18+</li>
+            <li>NVIDIA GPU (optional, but recommended)</li>
+        </ul>
+
+        <h3>Installation</h3>
+        <pre><code># Run installation script
+./install.sh
+
+# Or manually:
+cd backend && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+cd ../frontend && npm install</code></pre>
+
+        <h3>Running</h3>
+        <p><strong>Terminal 1 - Backend:</strong></p>
+        <pre><code>cd backend
+source venv/bin/activate
+python main.py
+# API: http://localhost:8000
+# Docs: http://localhost:8000/docs</code></pre>
+
+        <p><strong>Terminal 2 - Frontend:</strong></p>
+        <pre><code>cd frontend
+npm run dev
+# App: http://localhost:5173</code></pre>
+    </section>
+
+    <section class="section">
+        <h2>Architecture</h2>
+        <div class="tree">ddn-multimodal-semantic-search/
+├── backend/                    # FastAPI Python backend
+│   ├── app/
+│   │   ├── api/routes.py       # REST API endpoints
+│   │   ├── core/config.py      # Configuration management
+│   │   ├── models/schemas.py   # Pydantic models
+│   │   └── services/
+│   │       ├── storage.py      # DDN INFINIA S3 handler
+│   │       └── ai_models.py    # CLIP, BLIP, document analysis
+│   ├── main.py
+│   └── requirements.txt
+│
+├── frontend/                   # React + Vite + TypeScript
+│   ├── src/
+│   │   ├── components/         # Header, Sidebar
+│   │   ├── pages/              # About, Config, Upload, Search, Browse
+│   │   ├── services/api.ts     # API client
+│   │   └── styles/             # Tailwind CSS + DDN colors
+│   ├── public/                 # Production assets
+│   └── package.json
+├── ARCHITECTURE.md             # Detailed architecture guide
+└── install.sh                  # One-click installation</div>
+    </section>
+
+    <section class="section">
+        <h2>Content Types Supported</h2>
+
+        <h3>Images</h3>
+        <ul>
+            <li><strong>Formats</strong> — JPEG, PNG, WebP, GIF, BMP</li>
+            <li><strong>Analysis</strong> — CLIP embeddings, BLIP captions, object detection</li>
+            <li><strong>Metadata</strong> — Caption, detected objects, dimensions</li>
+        </ul>
+
+        <h3>Videos</h3>
+        <ul>
+            <li><strong>Formats</strong> — MP4, AVI, MOV, WebM</li>
+            <li><strong>Analysis</strong> — Frame extraction, scene analysis</li>
+            <li><strong>Metadata</strong> — Summary, duration, FPS, detected objects</li>
+        </ul>
+
+        <h3>Documents</h3>
+        <ul>
+            <li><strong>Formats</strong> — PDF, DOCX, TXT</li>
+            <li><strong>Analysis</strong> — Text extraction, BART summarization</li>
+            <li><strong>Metadata</strong> — Summary, word count, key terms</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>AI Models</h2>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Purpose</th>
+                <th>Source</th>
+            </tr>
+            <tr>
+                <td>CLIP (ViT-B/32)</td>
+                <td>Image embeddings for semantic search</td>
+                <td>OpenAI</td>
+            </tr>
+            <tr>
+                <td>BLIP</td>
+                <td>Automatic image captioning</td>
+                <td>Salesforce</td>
+            </tr>
+            <tr>
+                <td>BART</td>
+                <td>Document summarization</td>
+                <td>Facebook</td>
+            </tr>
+        </table>
+        <p><strong>Note:</strong> Models are downloaded on first run (~2GB total). GPU recommended for faster inference.</p>
+    </section>
+
+    <section class="section">
+        <h2>API Reference</h2>
+
+        <h3>Configuration</h3>
+        <table>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            <tr><td>POST</td><td><code>/api/config/ddn</code></td><td>Configure DDN INFINIA</td></tr>
+            <tr><td>POST</td><td><code>/api/config/aws</code></td><td>Configure AWS S3</td></tr>
+            <tr><td>GET</td><td><code>/api/config/test/{provider}</code></td><td>Test connection</td></tr>
+        </table>
+
+        <h3>Upload</h3>
+        <table>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            <tr><td>POST</td><td><code>/api/upload/image</code></td><td>Upload and analyze image</td></tr>
+            <tr><td>POST</td><td><code>/api/upload/video</code></td><td>Upload and analyze video</td></tr>
+            <tr><td>POST</td><td><code>/api/upload/document</code></td><td>Upload and analyze document</td></tr>
+        </table>
+
+        <h3>Search & Browse</h3>
+        <table>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            <tr><td>POST</td><td><code>/api/search</code></td><td>Semantic search</td></tr>
+            <tr><td>POST</td><td><code>/api/browse</code></td><td>Browse all content</td></tr>
+            <tr><td>DELETE</td><td><code>/api/browse/{key}</code></td><td>Delete object</td></tr>
+        </table>
+
+        <h3>Health & Metrics</h3>
+        <table>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            <tr><td>GET</td><td><code>/health</code></td><td>Health check</td></tr>
+            <tr><td>GET</td><td><code>/metrics</code></td><td>Storage metrics</td></tr>
+        </table>
+    </section>
+
+    <section class="section">
+        <h2>Tech Stack</h2>
+
+        <h3>Backend</h3>
+        <ul>
+            <li>FastAPI — High-performance Python web framework</li>
+            <li>PyTorch — Deep learning framework</li>
+            <li>Transformers — Hugging Face model hub</li>
+            <li>boto3 — AWS SDK for S3-compatible storage</li>
+        </ul>
+
+        <h3>Frontend</h3>
+        <ul>
+            <li>React 18 + TypeScript</li>
+            <li>Vite — Build tool</li>
+            <li>Tailwind CSS — Styling</li>
+            <li>TanStack Query — Data fetching</li>
+            <li>Framer Motion — Animations</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>Troubleshooting</h2>
+        <table>
+            <tr><th>Issue</th><th>Solution</th></tr>
+            <tr><td>Backend won't start</td><td>Check Python 3.9+, reinstall dependencies</td></tr>
+            <tr><td>Models download slow</td><td>First run downloads ~2GB of models</td></tr>
+            <tr><td>Storage connection fails</td><td>Check endpoint URL has <code>https://</code></td></tr>
+            <tr><td>Frontend API fails</td><td>Ensure backend runs on port 8000</td></tr>
+            <tr><td>GPU not detected</td><td>Install CUDA toolkit, check PyTorch CUDA build</td></tr>
+        </table>
+    </section>
+
+    <hr>
+
+    <footer class="footer">
+        <p><strong>DDN INFINIA</strong> &nbsp;|&nbsp; <strong>NVIDIA CLIP/BLIP</strong> &nbsp;|&nbsp; <strong>Multimodal Search</strong></p>
+        <p style="margin-top: 0.5rem;">MIT License</p>
+    </footer>
+</body>
+</html>
