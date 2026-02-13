@@ -1,0 +1,7 @@
+#!/Users/nwasim/Documents/MyDocs/llm_engineering-main/DDN/Infinia/kafka-pipeline/python-pipeline/Build.DDN.Com/Build.Semantic_Search/backend/Sem-Search/bin/python3
+import sys
+from accelerate.commands.merge import main
+if __name__ == '__main__':
+    if sys.argv[0].endswith('.exe'):
+        sys.argv[0] = sys.argv[0][:-4]
+    sys.exit(main())

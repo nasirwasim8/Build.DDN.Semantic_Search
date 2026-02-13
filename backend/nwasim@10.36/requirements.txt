@@ -1,0 +1,38 @@
+# DDN Multimodal Semantic Search - Backend Dependencies
+# =====================================================
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Object Storage (DDN Infinia S3-compatible)
+boto3>=1.28.0
+botocore>=1.31.0
+urllib3
+
+# AI/ML - Image and Video Analysis (NVIDIA GPU accelerated)
+torch>=2.0.0
+transformers>=4.35.0
+accelerate>=0.24.0
+huggingface-hub>=0.19.0
+sentencepiece>=0.1.99
+
+# Image Processing
+Pillow>=10.0.0
+opencv-python>=4.8.0
+
+# Document Processing
+PyPDF2>=3.0.0
+python-docx>=0.8.11
+
+# Async Task Processing (Celery + Redis)
+celery>=5.3.0
+redis>=5.0.0
+kombu>=5.3.0  # Celery messaging library
+
+# Utilities
+numpy>=1.24.0
+python-dotenv>=1.0.0

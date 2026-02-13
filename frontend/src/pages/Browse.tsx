@@ -174,9 +174,9 @@ export default function BrowsePage() {
           {objects.map((obj: ObjectInfo) => (
             <div key={obj.key} className="media-card group">
               {/* Preview */}
-              {obj.modality === 'image' && obj.presigned_url ? (
+              {obj.modality === 'image' ? (
                 <img
-                  src={obj.presigned_url}
+                  src={`/api/browse/image-stream/${obj.key}`}
                   alt={String(obj.metadata?.caption || 'Image')}
                   className="media-card-image"
                 />
@@ -207,7 +207,7 @@ export default function BrowsePage() {
                     <ExternalLink className="w-4 h-4 text-neutral-600" />
                   </a>
                 )}
-                {obj.metadata?.asset_id && (
+                {!!(obj.metadata?.asset_id) && (
                   <button
                     onClick={() => startEditing(obj)}
                     className="p-2 bg-white rounded-lg shadow-md hover:bg-blue-50"

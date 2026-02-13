@@ -574,20 +574,27 @@ def process_video_background(
         if not media_bytes:
             raise Exception(f"Failed to download media: {msg}")
         
-        # Save media bytes to temp file for processing
-        temp_video_path = None
-        try:
-            temp_fd, temp_video_path = tempfile.mkstemp(suffix=os.path.splitext(s3_key)[1])
-            os.write(temp_fd, media_bytes)
-            os.close(temp_fd)
-            
-            logger.info(f"Wrote {len(media_bytes)} bytes to temp file: {temp_video_path}")
-        except Exception as e:
-            raise Exception(f"Failed to create temp file: {e}")
-        
-        # Extract video metadata
-        chunker = VideoChunker()
-        video_info = chunker.get_video_info(temp_video_path)
+        # Route to appropriate processor based on media type
+        if manifest.media_type == 'video':
+            # Process as video with chunks
+            _process_video_with_chunks(
+                asset_id, media_bytes, s3_key, manifest, storage, 
+                custom_summary, custom_tags, start_time
+            )
+        elif manifest.media_type == 'image':
+            # Process as single image
+            _process_image_simple(
+                asset_id, media_bytes, s3_key, manifest, storage,
+                custom_summary, custom_tags, start_time
+            )
+        elif manifest.media_type == 'document':
+            # Process as document
+            _process_document_simple(
+                asset_id, media_bytes, s3_key, manifest, storage,
+                custom_summary, start_time
+            )
+        else:
+            raise Exception(f"Unknown media type: {manifest.media_type}")
         
         if not video_info:
             raise Exception("Failed to extract video metadata")

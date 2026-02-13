@@ -278,7 +278,7 @@ export default function SearchPage() {
                 </video>
               ) : (
                 <div className="media-card-image flex items-center justify-center">
-                  {getModalityIcon(result.modality)}
+                  {getModalityIcon((result.modality as Modality))}
                 </div>
               )}
 
@@ -320,24 +320,24 @@ export default function SearchPage() {
                 </h3>
 
                 {/* Storage Capabilities */}
-                {result.storage_info && (
+                {(result.storage_info as any) && (
                   <div className="mb-3 p-2 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-700">
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       {/* Access Permissions */}
                       <div>
                         <span className="font-medium text-neutral-700 dark:text-neutral-300">Access:</span>
                         <div className="flex gap-1 mt-1">
-                          {result.storage_info.access_control.read && (
+                          {result.storage_info?.access_control.read && (
                             <span className="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded text-[10px] font-medium">
                               ✓ Read
                             </span>
                           )}
-                          {result.storage_info.access_control.write && (
+                          {result.storage_info?.access_control.write && (
                             <span className="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded text-[10px] font-medium">
                               ✓ Write
                             </span>
                           )}
-                          {result.storage_info.access_control.delete && (
+                          {result.storage_info?.access_control.delete && (
                             <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded text-[10px] font-medium">
                               ✓ Delete
                             </span>
@@ -349,7 +349,7 @@ export default function SearchPage() {
                       <div>
                         <span className="font-medium text-neutral-700 dark:text-neutral-300">Class:</span>
                         <div className="mt-1 text-[10px] text-neutral-600 dark:text-neutral-400 font-mono">
-                          {result.storage_info.storage_class}
+                          {result.storage_info?.storage_class}
                         </div>
                       </div>
 
@@ -357,30 +357,30 @@ export default function SearchPage() {
                       <div>
                         <span className="font-medium text-neutral-700 dark:text-neutral-300">Protocol:</span>
                         <div className="mt-1 text-[10px] text-neutral-600 dark:text-neutral-400">
-                          {result.storage_info.protocol}
-                          {result.storage_info.encryption && (
-                            <span className="ml-1 text-green-600 dark:text-green-400">🔒 {result.storage_info.encryption}</span>
+                          {result.storage_info?.protocol}
+                          {result.storage_info?.encryption && (
+                            <span className="ml-1 text-green-600 dark:text-green-400">🔒 {result.storage_info?.encryption}</span>
                           )}
                         </div>
                       </div>
 
                       {/* Retrieval Time */}
-                      {result.storage_info.retrieval_time_ms !== undefined && (
+                      {result.storage_info?.retrieval_time_ms !== undefined && (
                         <div>
                           <span className="font-medium text-neutral-700 dark:text-neutral-300">Retrieval:</span>
                           <div className="mt-1 text-[10px] font-mono"
                             style={{
-                              color: result.storage_info.retrieval_time_ms < 5 ? '#16a34a' :
-                                result.storage_info.retrieval_time_ms < 10 ? '#2563eb' : '#dc2626'
+                              color: result.storage_info?.retrieval_time_ms < 5 ? '#16a34a' :
+                                result.storage_info?.retrieval_time_ms < 10 ? '#2563eb' : '#dc2626'
                             }}
                           >
-                            ⚡ {result.storage_info.retrieval_time_ms.toFixed(1)}ms
+                            ⚡ {result.storage_info?.retrieval_time_ms.toFixed(1)}ms
                           </div>
                         </div>
                       )}
 
                       {/* Versioning */}
-                      {result.storage_info.versioning_enabled && (
+                      {result.storage_info?.versioning_enabled && (
                         <div className="col-span-2">
                           <span className="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded text-[10px] font-medium">
                             📚 Versioning Enabled
@@ -401,7 +401,7 @@ export default function SearchPage() {
                 {/* Key Details - No JSON */}
                 <div className="text-xs text-neutral-500 space-y-1">
                   {/* Detected Objects/Tags as badges */}
-                  {result.metadata?.detected_objects && (
+                  {(result.metadata?.detected_objects as any) && (
                     <div className="mb-2">
                       <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 block mb-1.5">Detected Tags:</span>
                       <div className="flex flex-wrap gap-1.5">
@@ -418,7 +418,7 @@ export default function SearchPage() {
                   )}
 
                   {/* AI Summary */}
-                  {result.metadata?.video_summary && (
+                  {(result.metadata?.video_summary as any) && (
                     <div className="mb-2">
                       <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 block mb-1.5">AI Summary:</span>
                       <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">

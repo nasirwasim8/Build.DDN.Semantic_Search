@@ -1,0 +1,22 @@
+{
+  "aws": {
+    "provider": "AWS S3",
+    "access_key": "",
+    "secret_key": "",
+    "bucket_name": "",
+    "region": "us-east-1"
+  },
+  "ddn": {
+    "provider": "DDN INFINIA",
+    "endpoint_url": "https://10.36.111.120:8111",
+    "access_key": "7JPYE54HPIKA51RWSPGZ",
+    "secret_key": "sV2xcuDocH2psx6xm2OXP85LWVJtnNkSmzRP0Dui",
+    "bucket_name": "intelligent-datasets",
+    "region": "us-east-1"
+  },
+  "local_cache": {
+    "enabled": false,
+    "videos_path": "",
+    "embeddings_path": ""
+  }
+}

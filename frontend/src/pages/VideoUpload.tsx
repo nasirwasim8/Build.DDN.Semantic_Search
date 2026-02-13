@@ -135,12 +135,6 @@ const VideoUpload: React.FC = () => {
         }
     }, [uploadMutation])
 
-    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
-        if (file) {
-            uploadMutation.mutate(file)
-        }
-    }
 
     const getStatusIcon = (status: string) => {
         switch (status) {
@@ -261,7 +255,7 @@ const VideoUpload: React.FC = () => {
                             onChange={(e) => {
                                 const files = e.target.files
                                 if (files && files.length > 0) {
-                                    handleFileSelect(files[0])
+                                    uploadMutation.mutate(files[0])
                                 }
                             }}
                             className="hidden"
