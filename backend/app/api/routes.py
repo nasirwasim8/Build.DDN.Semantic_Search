@@ -1158,7 +1158,8 @@ async def semantic_search(request: SearchRequest):
                 if matches > 0:
                     score = matches / len(query_words)
 
-            if score > 0:
+            # Only include results that meet or exceed the threshold
+            if score >= request.threshold:
                 # Generate presigned URL
                 presigned_url = handler.generate_presigned_url(obj['key'])
                 
