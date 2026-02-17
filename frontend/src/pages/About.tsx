@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Image, Video, FileText, Zap, Database, ArrowRight, DollarSign, TrendingUp, Trophy, Search, FolderOpen, Brain } from 'lucide-react'
+import { Image, Video, FileText, Zap, Database, ArrowRight, DollarSign, TrendingUp, Trophy } from 'lucide-react'
 
 interface AboutPageProps {
   onStartDemo?: () => void
@@ -86,7 +86,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </div>
 
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-black mb-6"
+              className="text-4xl md:text-6xl lg:text-7xl font-black mb-6"
               style={{
                 letterSpacing: '-0.04em',
                 lineHeight: 1.05,
@@ -100,7 +100,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </h1>
 
             <p
-              className="text-xl md:text-2xl lg:text-3xl text-white/90 max-w-4xl mx-auto font-light"
+              className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto font-light"
               style={{ lineHeight: 1.5, letterSpacing: '-0.01em' }}
             >
               When semantic search meets high-performance infrastructure,{' '}
@@ -240,64 +240,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </div>
           </motion.div>
 
-          {/* AI Use Case Highlights */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold text-white/90 mb-8">
-              Perfect Infrastructure Powers Every AI Initiative
-            </h3>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              {[
-                { icon: <Video className="w-8 h-8 text-purple-400" strokeWidth={2} />, title: 'Video Analytics', desc: 'Real-time frame analysis' },
-                { icon: <Search className="w-8 h-8 text-blue-400" strokeWidth={2} />, title: 'Semantic Search', desc: 'Sub-100ms multimodal' },
-                { icon: <FolderOpen className="w-8 h-8 text-green-400" strokeWidth={2} />, title: 'Dataset Discovery', desc: 'Instant model experiments' },
-                { icon: <Brain className="w-8 h-8 text-pink-400" strokeWidth={2} />, title: 'RAG Applications', desc: 'Knowledge retrieval at scale' }
-              ].map((useCase, i) => (
-                <div
-                  key={i}
-                  className="p-6 rounded-xl"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    transition: 'all 200ms ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
-                    e.currentTarget.style.borderColor = 'rgba(118, 185, 0, 0.4)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)'
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
-                  }}
-                >
-                  <div className="mb-3 flex justify-center">{useCase.icon}</div>
-                  <div className="font-bold text-white text-xl mb-1">{useCase.title}</div>
-                  <div className="text-base text-white/60">{useCase.desc}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Bottom Tagline */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center mt-16"
-          >
-            <p
-              className="text-xl md:text-2xl lg:text-3xl text-white/50 italic max-w-3xl mx-auto"
-              style={{ fontWeight: 300 }}
-            >
-              "When you can search every video frame, discover every dataset, and surface insights in milliseconds
-              <br />you don't just gain efficiency. You unlock competitive intelligence that others take weeks to find."
-            </p>
-          </motion.div>
         </div>
       </section>
 
@@ -467,7 +410,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
                 WebkitTextFillColor: 'transparent'
               }}
             >
-              Search
+              Video Search
             </h2>
           </motion.div>
 
@@ -476,7 +419,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-12"
+            className="text-center text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-8"
             style={{ lineHeight: 1.7 }}
           >
             GPU-accelerated AI semantic search across images, videos, and documents.
@@ -489,15 +432,307 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8"
           >
-            <StatCard value="CLIP" label="Image Embeddings" description="OpenAI Vision" />
-            <StatCard value="BLIP" label="Image Captioning" description="Salesforce AI" />
-            <StatCard value="<50ms" label="Search Latency" description="Semantic matching" />
-            <StatCard value="3" label="Modalities" description="Image, Video, Doc" />
+            <StatCardWithIcon
+              icon={<Zap className="w-10 h-10" />}
+              value="GPU Acceleration"
+              label="AI Models"
+              description="CLIP, BLIP & ViT vision-language models"
+            />
+            <StatCardWithIcon
+              icon={
+                <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                </svg>
+              }
+              value="Multimodal"
+              label="Semantic Understanding"
+              description="Meaning, not keywords"
+            />
+            <StatCardWithIcon
+              icon={
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              }
+              value="S3 Native"
+              label="Storage Integration"
+              description="DDN INFINIA Backend"
+            />
+            <StatCardWithIcon
+              icon={
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              }
+              value="Vector Search"
+              label="FAISS-powered"
+              description="Real-time similarity matching"
+            />
+          </motion.div>
+
+          {/* Competitive Intelligence Quote */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center"
+          >
+            <p
+              className="text-base md:text-lg text-white/50 italic max-w-3xl mx-auto"
+              style={{ fontWeight: 300, lineHeight: 1.6 }}
+            >
+              "When you can search every video frame, discover every dataset, and surface insights in milliseconds
+              <br />you don't just gain efficiency. You unlock competitive intelligence that others take weeks to find."
+            </p>
           </motion.div>
         </div>
       </section>
+
+      {/* Problem Statement Section */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+        }}
+      >
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 40px,
+                rgba(255,255,255,0.5) 40px,
+                rgba(255,255,255,0.5) 41px
+              )`
+            }}
+          />
+          <div
+            className="absolute"
+            style={{
+              width: '600px',
+              height: '600px',
+              background: 'radial-gradient(circle, rgba(237, 39, 56, 0.08) 0%, transparent 70%)',
+              right: '-200px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              filter: 'blur(60px)'
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 py-12 md:py-16">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <div className="inline-block mb-4">
+              <span
+                className="px-5 py-2 rounded-full text-sm font-bold tracking-wide uppercase"
+                style={{
+                  background: 'rgba(237, 39, 56, 0.15)',
+                  border: '2px solid rgba(237, 39, 56, 0.3)',
+                  color: '#F87171',
+                  boxShadow: '0 4px 20px rgba(237, 39, 56, 0.2)'
+                }}
+              >
+                ⚠️ The Challenge
+              </span>
+            </div>
+
+            <h2
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+              style={{
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                background: 'linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              The Problem with Video Data
+            </h2>
+
+            <p className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-6" style={{ lineHeight: 1.5 }}>
+              Training <span className="font-bold text-nvidia-green">autonomous vehicle AI models</span> requires finding
+              critical moments in <span className="font-bold text-amber-300">petabytes of video data</span>
+            </p>
+          </motion.div>
+
+          {/* Use Case Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="max-w-3xl mx-auto mb-12"
+          >
+            <div
+              className="p-6 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <h3 className="text-xl font-bold text-white mb-3">Autonomous Vehicle AI Teams Face:</h3>
+              <ul className="space-y-2 text-base text-white/70">
+                <li className="flex items-start gap-3">
+                  <span className="text-ddn-red text-2xl">•</span>
+                  <span>Petabytes of dashcam and sensor footage from test vehicles</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-ddn-red text-2xl">•</span>
+                  <span>Thousands of hours of edge-case scenarios: adverse weather, pedestrian interactions, construction zones</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-ddn-red text-2xl">•</span>
+                  <span>Validation datasets for safety-critical situations</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-ddn-red text-2xl">•</span>
+                  <span>Simulation and real-world comparison videos</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* Problem Stats Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          >
+            {/* Stat 1: Data Volume */}
+            <div
+              className="p-6 rounded-2xl text-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(237, 39, 56, 0.1) 0%, rgba(237, 39, 56, 0.05) 100%)',
+                border: '1px solid rgba(237, 39, 56, 0.2)',
+                transition: 'all 200ms ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(237, 39, 56, 0.4)'
+                e.currentTarget.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(237, 39, 56, 0.2)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
+              <Database className="w-10 h-10 mx-auto mb-2 text-ddn-red" />
+              <div className="text-2xl font-bold text-ddn-red mb-1">Petabytes</div>
+              <div className="text-white/70 text-sm">Video Data to Manage</div>
+            </div>
+
+            {/* Stat 2: Time Wasted */}
+            <div
+              className="p-6 rounded-2xl text-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%)',
+                border: '1px solid rgba(251, 191, 36, 0.2)',
+                transition: 'all 200ms ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.4)'
+                e.currentTarget.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.2)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
+              <svg className="w-10 h-10 mx-auto mb-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div className="text-2xl font-bold text-amber-400 mb-1">20-30 hrs</div>
+              <div className="text-white/70 text-sm">Per Week Searching</div>
+            </div>
+
+            {/* Stat 3: Edge Cases */}
+            <div
+              className="p-6 rounded-2xl text-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%)',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+                transition: 'all 200ms ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.4)'
+                e.currentTarget.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.2)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
+              <svg className="w-10 h-10 mx-auto mb-2 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div className="text-2xl font-bold text-red-400 mb-1">Missed</div>
+              <div className="text-white/70 text-sm">Critical Edge Cases</div>
+            </div>
+
+            {/* Stat 4: Impact */}
+            <div
+              className="p-6 rounded-2xl text-center"
+              style={{
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.08) 100%)',
+                border: '2px solid rgba(239, 68, 68, 0.3)',
+                transition: 'all 200ms ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.5)'
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 10px 40px rgba(239, 68, 68, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <svg className="w-10 h-10 mx-auto mb-2 text-red-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3-7-7V8.3l7-3.12 7 3.12V13c0 4-3 7-7 7zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z" />
+              </svg>
+              <div className="text-2xl font-bold text-red-300 mb-1">Safety Liability</div>
+              <div className="text-white/70 text-sm">Production Risk</div>
+            </div>
+          </motion.div>
+
+          {/* Bottom Impact Statement */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center"
+          >
+            <div
+              className="inline-block px-6 py-4 rounded-2xl max-w-4xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(237, 39, 56, 0.1) 100%)',
+                border: '2px solid rgba(239, 68, 68, 0.3)',
+                boxShadow: '0 8px 32px rgba(239, 68, 68, 0.2)'
+              }}
+            >
+              <p className="text-xl md:text-2xl font-bold text-white mb-1">
+                Missed edge cases = Model blind spots
+              </p>
+              <p className="text-base md:text-lg text-red-200">
+                In autonomous vehicles, that's not just inefficiency — <span className="font-bold">it's a safety liability</span>
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
 
       {/* Features Section */}
       <section className="bg-surface-primary px-6 py-16">
@@ -548,125 +783,214 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </div>
           </div>
 
-          {/* Architecture Diagram */}
+          {/* Architecture Diagram - VSS Style */}
           <div className="mt-16">
-            <h3 className="heading-3 mb-8 text-center">Architecture Diagram</h3>
+            <h3 className="heading-3 mb-8 text-center">
+              VSS Blueprint Architecture
+            </h3>
+
             <div className="card p-8" style={{ background: 'var(--surface-card)' }}>
-              {/* Diagram Container */}
-              <div className="flex items-center justify-center gap-4 flex-wrap md:flex-nowrap">
-                {/* User */}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 rounded-full border-2 flex items-center justify-center" style={{ borderColor: '#007AFF', color: '#007AFF' }}>
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
+              {/* Pipeline Labels */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* INGESTION PIPELINE */}
+                <div>
+                  <div className="mb-6 pb-4 border-b-2" style={{ borderColor: 'rgba(118, 185, 0, 0.3)' }}>
+                    <h4 className="text-lg font-bold text-nvidia-green flex items-center gap-2">
+                      <Database className="w-5 h-5" />
+                      DATA INGESTION PIPELINE
+                    </h4>
+                    <p className="text-xs mt-1" style={{ color: '#1F2937' }}>Video processing, chunking & embedding generation</p>
                   </div>
-                  <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>User</span>
-                </div>
 
-                {/* Arrow 1 */}
-                <div className="flex flex-col items-center">
-                  <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                    <path d="M0 12 L24 12 M18 6 L24 12 L18 18" stroke="#8E8E93" strokeWidth="2" fill="none" />
-                  </svg>
-                  <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>HTTP</span>
-                </div>
-
-                {/* React Frontend */}
-                <div className="flex flex-col items-center">
-                  <div className="px-6 py-4 rounded-xl border-2 min-w-[140px] text-center" style={{ background: 'rgba(0, 122, 255, 0.05)', borderColor: 'rgba(0, 122, 255, 0.3)' }}>
-                    <div className="font-semibold text-sm mb-1" style={{ color: '#007AFF' }}>React Web App</div>
-                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>TypeScript + Vite</div>
-                  </div>
-                  <span className="text-[10px] mt-1" style={{ color: '#007AFF' }}>Frontend</span>
-                </div>
-
-                {/* Arrow 2 */}
-                <div className="flex flex-col items-center">
-                  <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                    <path d="M0 12 L24 12 M18 6 L24 12 L18 18" stroke="#8E8E93" strokeWidth="2" fill="none" />
-                  </svg>
-                  <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>API</span>
-                </div>
-
-                {/* FastAPI Backend */}
-                <div className="flex flex-col items-center">
-                  <div className="px-6 py-4 rounded-xl border-2 min-w-[140px] text-center" style={{ background: 'rgba(255, 149, 0, 0.05)', borderColor: 'rgba(255, 149, 0, 0.3)' }}>
-                    <div className="font-semibold text-sm mb-1" style={{ color: '#FF9500' }}>FastAPI Server</div>
-                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>Python REST API</div>
-                  </div>
-                  <span className="text-[10px] mt-1" style={{ color: '#FF9500' }}>Backend</span>
-                </div>
-
-                {/* Arrow 3 */}
-                <div className="flex flex-col items-center">
-                  <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                    <path d="M0 12 L24 12 M18 6 L24 12 L18 18" stroke="#8E8E93" strokeWidth="2" fill="none" />
-                  </svg>
-                  <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>Inference</span>
-                </div>
-
-                {/* GPU AI */}
-                <div className="flex flex-col items-center">
-                  <div className="px-6 py-4 rounded-xl border-2 min-w-[180px] text-center" style={{ background: 'rgba(118, 185, 0, 0.05)', borderColor: 'rgba(118, 185, 0, 0.3)' }}>
-                    <div className="font-semibold text-sm mb-1 flex items-center justify-center gap-1" style={{ color: '#76B900' }}>
-                      <Zap className="w-3.5 h-3.5" />
-                      GPU-Accelerated AI
+                  {/* Ingestion Flow */}
+                  <div className="space-y-4">
+                    {/* Input Sources */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-24 text-sm font-bold" style={{ color: '#1F2937' }}>Input</div>
+                      <div className="flex gap-2">
+                        <div className="px-3 py-2 rounded-lg border" style={{ background: 'rgba(16, 185, 129, 0.2)', borderColor: 'rgba(16, 185, 129, 0.5)' }}>
+                          <Video className="w-5 h-5 mx-auto mb-1" style={{ color: '#10B981' }} />
+                          <span className="text-sm font-bold" style={{ color: '#10B981' }}>Videos</span>
+                        </div>
+                        <div className="px-3 py-2 rounded-lg border" style={{ background: 'rgba(16, 185, 129, 0.2)', borderColor: 'rgba(16, 185, 129, 0.5)' }}>
+                          <Image className="w-5 h-5 mx-auto mb-1" style={{ color: '#10B981' }} />
+                          <span className="text-sm font-bold" style={{ color: '#10B981' }}>Images</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex gap-2 justify-center my-2">
-                      <span className="px-2 py-0.5 rounded text-xs bg-white/50" style={{ color: '#76B900' }}>CLIP</span>
-                      <span className="px-2 py-0.5 rounded text-xs bg-white/50" style={{ color: '#76B900' }}>BLIP</span>
-                      <span className="px-2 py-0.5 rounded text-xs bg-white/50" style={{ color: '#76B900' }}>ViT</span>
+
+                    {/* Processing Steps */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-24 text-sm font-bold" style={{ color: '#1F2937' }}>Process</div>
+                      <div className="flex-1 space-y-2">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(59, 130, 246, 0.2)', borderColor: 'rgba(59, 130, 246, 0.5)' }}>
+                          <div className="text-sm font-bold" style={{ color: '#60A5FA' }}>Video Chunker</div>
+                          <div className="text-xs" style={{ color: '#374151' }}>10s segments</div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>CUDA PyTorch</div>
+
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-24"></div>
+                      <div className="flex-1">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(59, 130, 246, 0.2)', borderColor: 'rgba(59, 130, 246, 0.5)' }}>
+                          <div className="text-sm font-bold" style={{ color: '#60A5FA' }}>Frame Extractor</div>
+                          <div className="text-xs" style={{ color: '#374151' }}>OpenCV processing</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* AI Models */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-24 text-sm font-bold" style={{ color: '#1F2937' }}>AI Models</div>
+                      <div className="flex-1 space-y-2">
+                        <div className="px-3 py-2 rounded-lg border" style={{ background: 'rgba(16, 185, 129, 0.2)', borderColor: 'rgba(16, 185, 129, 0.5)' }}>
+                          <div className="flex items-center justify-center gap-2 mb-1">
+                            <Zap className="w-4 h-4" style={{ color: '#10B981' }} />
+                            <span className="text-sm font-bold" style={{ color: '#10B981' }}>CLIP Embeddings</span>
+                          </div>
+                          <div className="text-xs text-center" style={{ color: '#374151' }}>Visual-semantic encoding</div>
+                        </div>
+                        <div className="px-3 py-2 rounded-lg border" style={{ background: 'rgba(16, 185, 129, 0.2)', borderColor: 'rgba(16, 185, 129, 0.5)' }}>
+                          <div className="flex items-center justify-center gap-2 mb-1">
+                            <Zap className="w-4 h-4" style={{ color: '#10B981' }} />
+                            <span className="text-sm font-bold" style={{ color: '#10B981' }}>BLIP Captions</span>
+                          </div>
+                          <div className="text-xs text-center" style={{ color: '#374151' }}>Auto-captioning</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Storage */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-24 text-sm font-bold" style={{ color: '#1F2937' }}>Store</div>
+                      <div className="flex-1">
+                        <div className="px-4 py-3 rounded-lg border text-center" style={{ background: 'rgba(239, 68, 68, 0.2)', borderColor: 'rgba(239, 68, 68, 0.5)' }}>
+                          <div className="text-base font-bold mb-2" style={{ color: '#EF4444' }}>DDN INFINIA</div>
+                          <div className="flex justify-center gap-2 flex-wrap">
+                            <span className="text-xs px-2 py-1 rounded font-bold" style={{ background: 'rgba(255, 255, 255, 0.9)', color: '#DC2626', border: '1px solid rgba(220, 38, 38, 0.3)' }}>embeddings</span>
+                            <span className="text-xs px-2 py-1 rounded font-bold" style={{ background: 'rgba(255, 255, 255, 0.9)', color: '#DC2626', border: '1px solid rgba(220, 38, 38, 0.3)' }}>manifest</span>
+                            <span className="text-xs px-2 py-1 rounded font-bold" style={{ background: 'rgba(255, 255, 255, 0.9)', color: '#DC2626', border: '1px solid rgba(220, 38, 38, 0.3)' }}>metadata</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-[10px] mt-1" style={{ color: '#76B900' }}>AI Models</span>
                 </div>
 
-                {/* Arrow 4 */}
-                <div className="flex flex-col items-center">
-                  <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                    <path d="M0 12 L24 12 M18 6 L24 12 L18 18" stroke="#8E8E93" strokeWidth="2" fill="none" />
-                  </svg>
-                  <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>S3</span>
-                </div>
-
-                {/* DDN Storage */}
-                <div className="flex flex-col items-center">
-                  <div className="px-6 py-4 rounded-xl border-2 min-w-[140px] text-center" style={{ background: 'rgba(237, 39, 56, 0.05)', borderColor: 'rgba(237, 39, 56, 0.3)' }}>
-                    <div className="font-semibold text-sm mb-1" style={{ color: '#ED2738' }}>DDN INFINIA</div>
-                    <div className="text-xs" style={{ color: 'var(--text-muted)' }}>Object Storage</div>
+                {/* RETRIEVAL PIPELINE */}
+                <div>
+                  <div className="mb-6 pb-4 border-b-2" style={{ borderColor: 'rgba(0, 122, 255, 0.3)' }}>
+                    <h4 className="text-lg font-bold flex items-center gap-2" style={{ color: '#007AFF' }}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      SEMANTIC RETRIEVAL PIPELINE
+                    </h4>
+                    <p className="text-xs mt-1" style={{ color: '#6B7280' }}>Query processing, matching & ranking</p>
                   </div>
-                  <span className="text-[10px] mt-1" style={{ color: '#ED2738' }}>Storage</span>
+
+                  {/* Retrieval Flow */}
+                  <div className="space-y-4">
+                    {/* User Query */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-20 text-xs font-semibold" style={{ color: '#6B7280' }}>Input</div>
+                      <div className="flex-1">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(59, 130, 246, 0.15)', borderColor: 'rgba(59, 130, 246, 0.4)' }}>
+                          <div className="text-xs font-bold" style={{ color: '#3B82F6' }}>User Query</div>
+                          <div className="text-[10px]" style={{ color: '#6B7280' }}>Natural language search</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Embedding */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-20 text-xs font-semibold" style={{ color: '#6B7280' }}>Encode</div>
+                      <div className="flex-1">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(16, 185, 129, 0.15)', borderColor: 'rgba(16, 185, 129, 0.4)' }}>
+                          <div className="flex items-center justify-center gap-2 mb-1">
+                            <Zap className="w-3 h-3" style={{ color: '#10B981' }} />
+                            <span className="text-xs font-bold" style={{ color: '#10B981' }}>CLIP Encoder</span>
+                          </div>
+                          <div className="text-[10px]" style={{ color: '#6B7280' }}>Query → Embedding</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Vector Search */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-20 text-xs font-semibold" style={{ color: '#6B7280' }}>Match</div>
+                      <div className="flex-1 space-y-2">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(147, 51, 234, 0.15)', borderColor: 'rgba(147, 51, 234, 0.4)' }}>
+                          <div className="text-xs font-bold" style={{ color: '#A78BFA' }}>FAISS Index</div>
+                          <div className="text-[10px]" style={{ color: '#6B7280' }}>Cosine similarity</div>
+                        </div>
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(147, 51, 234, 0.15)', borderColor: 'rgba(147, 51, 234, 0.4)' }}>
+                          <div className="text-xs font-bold" style={{ color: '#A78BFA' }}>Metadata Filter</div>
+                          <div className="text-[10px]" style={{ color: '#6B7280' }}>Tags, captions, timestamps</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Ranking */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-20 text-xs font-semibold" style={{ color: '#6B7280' }}>Rank</div>
+                      <div className="flex-1">
+                        <div className="px-3 py-2 rounded-lg border text-center" style={{ background: 'rgba(251, 146, 60, 0.15)', borderColor: 'rgba(251, 146, 60, 0.4)' }}>
+                          <div className="text-xs font-bold" style={{ color: '#FB923C' }}>Semantic Ranking</div>
+                          <div className="text-[10px]" style={{ color: '#6B7280' }}>Relevance scoring</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Results */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-20 text-xs font-semibold" style={{ color: '#6B7280' }}>Return</div>
+                      <div className="flex-1">
+                        <div className="px-4 py-3 rounded-lg border text-center" style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.4)' }}>
+                          <div className="text-sm font-bold mb-1" style={{ color: '#EF4444' }}>Results</div>
+                          <div className="flex justify-center gap-1 flex-wrap">
+                            <span className="text-[10px] px-2 py-0.5 rounded font-semibold" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#FCA5A5' }}>Presigned URLs</span>
+                            <span className="text-[10px] px-2 py-0.5 rounded font-semibold" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#FCA5A5' }}>Metadata</span>
+                            <span className="text-[10px] px-2 py-0.5 rounded font-semibold" style={{ background: 'rgba(255, 255, 255, 0.15)', color: '#FCA5A5' }}>Scores</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Data Types Row */}
-              <div className="flex items-center justify-center gap-6 mt-8 pt-6 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-                <div className="flex items-center gap-2">
-                  <Image className="w-4 h-4" style={{ color: '#9333EA' }} />
-                  <span className="text-xs font-semibold" style={{ color: '#9333EA' }}>Images</span>
+              {/* Technology Stack Footer */}
+              <div className="mt-8 pt-6 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(16, 185, 129, 0.15)', borderColor: 'rgba(16, 185, 129, 0.3)', border: '1px solid' }}>
+                    <Zap className="w-3.5 h-3.5" style={{ color: '#10B981' }} />
+                    <span className="text-xs font-bold" style={{ color: '#10B981' }}>NVIDIA GPU</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.3)', border: '1px solid' }}>
+                    <Database className="w-3.5 h-3.5" style={{ color: '#EF4444' }} />
+                    <span className="text-xs font-bold" style={{ color: '#EF4444' }}>DDN INFINIA</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(251, 146, 60, 0.15)', borderColor: 'rgba(251, 146, 60, 0.3)', border: '1px solid' }}>
+                    <span className="text-xs font-bold" style={{ color: '#FB923C' }}>FastAPI</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(59, 130, 246, 0.15)', borderColor: 'rgba(59, 130, 246, 0.3)', border: '1px solid' }}>
+                    <span className="text-xs font-bold" style={{ color: '#3B82F6' }}>React + TypeScript</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Video className="w-4 h-4" style={{ color: '#DC2626' }} />
-                  <span className="text-xs font-semibold" style={{ color: '#DC2626' }}>Videos</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" style={{ color: '#2563EB' }} />
-                  <span className="text-xs font-semibold" style={{ color: '#2563EB' }}>Documents</span>
-                </div>
+                <p className="text-center text-xs mt-4" style={{ color: 'var(--text-muted)' }}>
+                  Production-ready VSS Blueprint architecture powered by DDN INFINIA storage
+                </p>
               </div>
-
-              <p className="text-center text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
-                End-to-end architecture showing data flow from user interface through GPU-accelerated AI processing to DDN INFINIA storage
-              </p>
             </div>
           </div>
         </div>
       </section>
 
+
       {/* Technology Section */}
-      <section className="bg-surface-base px-6 py-16">
+      < section className="bg-surface-base px-6 py-16" >
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-10">
             <span className="eyebrow text-ddn-red">Technology</span>
@@ -808,10 +1132,11 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* CTA Section */}
-      <section className="px-6 py-20" style={{ background: 'linear-gradient(135deg, var(--ddn-red) 0%, var(--ddn-red-hover) 100%)' }}>
+      < section className="px-6 py-20" style={{ background: 'linear-gradient(135deg, var(--ddn-red) 0%, var(--ddn-red-hover) 100%)' }
+      }>
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -852,17 +1177,17 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
             </button>
           </motion.div>
         </div>
-      </section>
+      </section >
 
       {/* Footer */}
-      <section className="bg-neutral-900 px-6 py-8">
+      < section className="bg-neutral-900 px-6 py-8" >
         <div className="max-w-[1280px] mx-auto text-center">
           <p className="text-white/40 text-sm">
             DDN INFINIA Multimodal Semantic Search Demo
           </p>
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   )
 }
 
@@ -887,6 +1212,46 @@ function StatCard({ value, label, description }: { value: string; label: string;
       <div
         className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white"
       >
+        {value}
+      </div>
+      <div className="text-white/80 font-medium text-sm">{label}</div>
+      <div className="text-white/40 text-xs mt-1">{description}</div>
+    </div>
+  )
+}
+
+function StatCardWithIcon({
+  icon,
+  value,
+  label,
+  description
+}: {
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+  description: string
+}) {
+  return (
+    <div
+      className="p-5 rounded-xl text-center relative overflow-hidden group"
+      style={{
+        background: 'rgba(255, 255, 255, 0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        transition: 'all 200ms ease'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
+        e.currentTarget.style.borderColor = 'rgba(118, 185, 0, 0.3)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'
+        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+      }}
+    >
+      <div className="flex justify-center mb-3 text-nvidia-green opacity-80">
+        {icon}
+      </div>
+      <div className="text-xl md:text-2xl font-bold mb-1 text-white">
         {value}
       </div>
       <div className="text-white/80 font-medium text-sm">{label}</div>
