@@ -20,16 +20,52 @@ export default function BrowsePage() {
     customSummary: ''
   })
 
+  // Delete confirmation state
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [videoToDelete, setVideoToDelete] = useState<{ assetId: string; filename: string; objectKey: string } | null>(null)
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['browse', modality],
     queryFn: () => api.browse(modality),
   })
 
   const deleteMutation = useMutation({
-    mutationFn: (objectKey: string) => api.deleteObject(objectKey),
-    onSuccess: () => {
-      toast.success('Object deleted successfully')
+    mutationFn: async (params: { objectKey: string; assetId?: string; isVideo?: boolean }) => {
+      // For videos with asset_id, delete raw video + manifest
+      if (params.isVideo && params.assetId) {
+        const filesToDelete = [
+          params.objectKey, // Raw video
+          `media/derived/manifests/${params.assetId}/manifest_v1.json`, // Manifest
+        ]
+
+        let deletedCount = 0
+        const errors = []
+
+        for (const key of filesToDelete) {
+          try {
+            await api.deleteObject(key)
+            deletedCount++
+          } catch (error) {
+            errors.push({ key, error })
+            console.error(`Failed to delete ${key}:`, error)
+          }
+        }
+
+        return { deleted_count: deletedCount, errors }
+      }
+
+      // Regular single file delete
+      return await api.deleteObject(params.objectKey)
+    },
+    onSuccess: (data) => {
+      if (data.deleted_count) {
+        toast.success(`Deleted ${data.deleted_count} files successfully`)
+      } else {
+        toast.success('Object deleted successfully')
+      }
       queryClient.invalidateQueries({ queryKey: ['browse'] })
+      setShowDeleteModal(false)
+      setVideoToDelete(null)
     },
     onError: () => {
       toast.error('Failed to delete object')
@@ -216,7 +252,21 @@ export default function BrowsePage() {
                   </button>
                 )}
                 <button
-                  onClick={() => deleteMutation.mutate(obj.key)}
+                  onClick={() => {
+                    // Check if this is a video with asset_id for cascading delete
+                    const assetId = obj.metadata?.asset_id as string | undefined
+                    if (obj.modality === 'video' && assetId) {
+                      setVideoToDelete({
+                        assetId,
+                        filename: obj.key.split('/').pop() || obj.key,
+                        objectKey: obj.key
+                      })
+                      setShowDeleteModal(true)
+                    } else {
+                      // Direct delete for non-videos or videos without asset_id
+                      deleteMutation.mutate({ objectKey: obj.key })
+                    }
+                  }}
                   disabled={deleteMutation.isPending}
                   className="p-2 bg-white rounded-lg shadow-md hover:bg-red-50"
                 >
@@ -334,6 +384,67 @@ export default function BrowsePage() {
           <p className="text-muted">
             Upload images, videos, or documents to get started
           </p>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && videoToDelete && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowDeleteModal(false)}>
+          <div className="card p-6 max-w-lg w-full mx-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-red-600 dark:text-red-400">⚠️ Delete Video & All Files?</h3>
+              <button onClick={() => setShowDeleteModal(false)} className="text-neutral-500 hover:text-neutral-700">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="mb-4 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
+              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Video:</p>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 font-mono">{videoToDelete.filename}</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1">Asset ID: {videoToDelete.assetId}</p>
+            </div>
+
+            <div className="mb-4">
+              <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">The following will be deleted:</p>
+              <ul className="text-xs text-neutral-600 dark:text-neutral-400 space-y-1.5">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✓</span>
+                  <span><strong>Raw video</strong> (original file)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✓</span>
+                  <span><strong>Video chunks</strong> (10s segments)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✓</span>
+                  <span><strong>Keyframes</strong> (extracted frames)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500">✓</span>
+                  <span><strong>Manifest & embeddings</strong> (metadata)</span>
+                </li>
+              </ul>
+              <p className="text-xs text-red-600 dark:text-red-400 mt-3 font-medium">⚠️ This action cannot be undone!</p>
+            </div>
+
+            <div className="flex gap-3">
+              <button onClick={() => setShowDeleteModal(false)} className="flex-1 btn-secondary">
+                Cancel
+              </button>
+              <button
+                onClick={() => deleteMutation.mutate({
+                  objectKey: videoToDelete.objectKey,
+                  assetId: videoToDelete.assetId,
+                  isVideo: true
+                })}
+                disabled={deleteMutation.isPending}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+              >
+                {deleteMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                Delete Everything
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

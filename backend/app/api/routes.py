@@ -1473,6 +1473,96 @@ async def delete_object(object_key: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@browse_router.delete("/video/{asset_id}")
+async def delete_video_cascade(asset_id: str, raw_video_key: str = None):
+    """Delete video and all associated artifacts (raw, chunks, keyframes, manifest, embeddings)."""
+    try:
+        logger.info(f"🗑️ Cascading delete started for asset_id: {asset_id}")
+        logger.info(f"🗑️ Raw video key: {raw_video_key}")
+        
+        handler = S3Handler('ddn_infinia', storage_config.local_cache_config)
+        deleted_files = []
+        failed_files = []
+        
+        # Ensure we have S3 client (bypass local cache for deletion)
+        if not handler._ensure_client():
+            raise HTTPException(status_code=500, detail="Failed to create S3 client")
+        
+        bucket_name = handler.config['bucket_name']
+        logger.info(f"🗑️ Using bucket: {bucket_name}")
+        
+        # 1. Delete the raw video file if provided
+        if raw_video_key:
+            logger.info(f"🗑️ Attempting to delete raw video: {raw_video_key}")
+            try:
+                handler.client.delete_object(Bucket=bucket_name, Key=raw_video_key)
+                deleted_files.append(raw_video_key)
+                logger.info(f"✅ Deleted raw video: {raw_video_key}")
+            except Exception as e:
+                logger.error(f"❌ Failed to delete raw video {raw_video_key}: {str(e)}")
+                failed_files.append({"key": raw_video_key, "error": str(e)})
+        else:
+            logger.warning("⚠️ No raw_video_key provided")
+        
+        # 2. Delete all derived artifact directories by asset_id
+        # Only manifests and keyframes exist in this S3 bucket
+        artifact_patterns = [
+            f"media/derived/keyframes/{asset_id}/",
+            f"media/derived/manifests/{asset_id}/"
+        ]
+        
+        # List and delete all files in each artifact directory
+        for pattern in artifact_patterns:
+            logger.info(f"🔍 Searching for files with pattern: {pattern}")
+            try:
+                # List objects directly from S3 with this prefix
+                response = handler.client.list_objects_v2(
+                    Bucket=bucket_name,
+                    Prefix=pattern
+                )
+                
+                if 'Contents' in response:
+                    file_count = len(response['Contents'])
+                    logger.info(f"📁 Found {file_count} files for pattern: {pattern}")
+                    for obj in response['Contents']:
+                        obj_key = obj['Key']
+                        try:
+                            # Delete directly from S3
+                            handler.client.delete_object(Bucket=bucket_name, Key=obj_key)
+                            deleted_files.append(obj_key)
+                            logger.info(f"✅ Deleted: {obj_key}")
+                        except Exception as e:
+                            logger.error(f"❌ Failed to delete {obj_key}: {str(e)}")
+                            failed_files.append({"key": obj_key, "error": str(e)})
+                else:
+                    logger.info(f"📭 No files found for pattern: {pattern}")
+            except Exception as e:
+                logger.error(f"❌ Error listing/deleting artifacts for pattern {pattern}: {str(e)}")
+                failed_files.append({"pattern": pattern, "error": str(e)})
+        
+        logger.info(f"🎯 Deletion complete: {len(deleted_files)} files deleted, {len(failed_files)} failures")
+        
+        if failed_files:
+            return {
+                "success": False,
+                "message": f"Deleted {len(deleted_files)} files, but {len(failed_files)} failed",
+                "deleted_count": len(deleted_files),
+                "deleted_files": deleted_files,
+                "failed_files": failed_files
+            }
+        
+        return {
+            "success": True,
+            "message": f"Successfully deleted all artifacts for video {asset_id}",
+            "deleted_count": len(deleted_files),
+            "deleted_files": deleted_files
+        }
+
+    except Exception as e:
+        logger.error(f"💥 Error in cascade delete: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ============== Health Routes ==============
 
 @health_router.get("/health", response_model=HealthResponse)
