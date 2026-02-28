@@ -17,9 +17,9 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
       border: 'border-emerald-500/30',
       bg: 'bg-emerald-500/5',
       iconColor: '#10b981',
-      badge: '1 Analyst = 3-Person Tagging Team',
+      badge: 'Dark Data → Live Intelligence',
       badgeBg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
-      summary: (<>A static media archive becomes a <strong>live intelligence layer</strong>. One analyst, one natural-language query — finds the needle in a PB-scale haystack <strong>in under 2 seconds</strong>, vs. 3 engineers manually tagging for weeks.</>),
+      summary: (<>Enterprises sit on <strong>petabytes of dark, untagged video</strong> — AI teams burn weeks hunting edge cases for model fine-tuning. One NLP query replaces that entire search cycle. <strong>Results in under 2 seconds</strong>, across every petabyte in the archive.</>),
       icon: (
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
@@ -27,11 +27,11 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
         </svg>
       ),
       details: [
-        { label: 'Demo proof', value: 'Type "person near a crosswalk at night" — no tags, no Boolean query — DDN INFINIA returns exact frames in sub-2s. CLIP embedding lookup is a metadata read, not a compute event.' },
-        { label: 'Operational leverage', value: 'One analyst replaces a 3-person content ops team. A media archive that was dead weight becomes an active, searchable, auditable intelligence asset.' },
-        { label: 'At 1M assets', value: "DDN's flat namespace vs. hierarchical S3 means the difference between a 2-second query and a 2-minute wait. Semantic search vs keyword search isn't UX — it's operational leverage." },
-        { label: 'Unstructured data ROI', value: 'Every petabyte of video, images, and documents previously inaccessible by keyword is now queryable. Dead-weight storage becomes a monetizable, AI-ready asset.' },
-        { label: 'C-suite headline', value: '"We turned our entire unstructured media estate into a queryable intelligence layer — without a single line of SQL or a manual tagging budget."' },
+        { label: 'The dark data problem', value: 'Enterprise AI teams accumulate PBs of video — cameras, sensors, test fleets. Less than 5% is ever tagged or queried. The rest is dark data: a cost center with zero intelligence value.' },
+        { label: 'Model fine-tuning bottleneck', value: 'Finding edge cases for model retraining — adverse weather, rare intersections, equipment anomalies — takes 2–6 weeks of manual tagging per dataset. With DDN + NVIDIA VSS, it is one NLP query: "wet road, low visibility, pedestrian crossing" — answered in 2 seconds.' },
+        { label: 'Operational leverage', value: 'One data scientist with a natural language query replaces a 3–5 person annotation team. Every week of manual tagging compresses to minutes. AI iteration cycles shrink from months to days.' },
+        { label: 'PB-scale readiness', value: "DDN INFINIA's flat namespace means a 1PB archive and a 100PB archive respond identically. Query latency stays flat as the data estate grows — no tiering, no cold-retrieval delays." },
+        { label: 'C-suite headline', value: '"Our AI teams were burning weeks finding the edge cases models need most. With DDN, that search is a sentence — typed once, answered in seconds, across every petabyte we own."' },
       ]
     },
     {
@@ -40,9 +40,9 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
       border: 'border-orange-500/30',
       bg: 'bg-orange-500/5',
       iconColor: '#f97316',
-      badge: '$2M–$4M/yr Search Stack Eliminated',
+      badge: '$2M–$5M/yr Annotation + Search Stack Eliminated',
       badgeBg: 'bg-orange-500/10 border-orange-500/30 text-orange-500',
-      summary: (<>Eliminates purpose-built search infrastructure (Elasticsearch, cold-storage tiers, S3 egress). A 10PB media estate served from INFINIA's flat namespace — <strong>zero tiering tax, zero egress, no vector DB purchase.</strong></>),
+      summary: (<>Eliminates manual annotation tooling, Elasticsearch, cold-storage tiers, and S3 egress in one architecture decision. <strong>No separate vector database.</strong> CLIP embeddings stored natively in INFINIA — zero marginal cost on every query, every fine-tuning dataset pull.</>),
       icon: (
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <line x1="12" y1="1" x2="12" y2="23" />
@@ -50,11 +50,11 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
         </svg>
       ),
       details: [
-        { label: 'Vector DB deferred', value: '$500K–$2M purpose-built vector database deployment avoided. CLIP embeddings stored natively as object metadata in INFINIA — no separate vector store needed.' },
-        { label: 'Egress elimination', value: 'Every inference retrieval pass over S3 carries an egress cost. INFINIA co-location removes this entirely — estimated $800K–$3M/yr at enterprise scale.' },
-        { label: 'Embedding reuse', value: 'CLIP vectors stored once as INFINIA metadata = zero marginal cost on repeat queries. Compute already paid for; every re-use is effectively free retrieval.' },
-        { label: 'Headcount reduction', value: 'Manual tagging and annotation teams no longer needed at scale. $800K–$3M/yr operational savings — redirected to model training and product development.' },
-        { label: 'C-suite headline', value: '"We replaced a $2M search stack and a 5-person annotation team with one storage architecture and a natural language interface."' },
+        { label: 'Annotation cost eliminated', value: 'Manual video tagging for model fine-tuning runs $80–$200/hr per specialist. At enterprise scale — 10K+ hours of edge-case annotation per AI program per year — that is $2M–$5M in avoidable spend. NLP query replaces the entire workflow.' },
+        { label: 'Vector DB deferred', value: '$500K–$2M purpose-built vector database (Pinecone, Weaviate, Milvus) avoided entirely. CLIP embeddings live natively as S3 object metadata in INFINIA — query directly, no integration, no sync.' },
+        { label: 'Egress tax removed', value: 'Every inference retrieval over cloud S3 carries egress. INFINIA co-location removes this entirely — estimated $800K–$3M/yr at a 10PB estate running continuous model training workloads.' },
+        { label: 'Embedding reuse = free retrieval', value: 'CLIP vectors written once at ingest. Every subsequent query — including every fine-tuning dataset pull — is a metadata read. No re-inference, no GPU spin-up. Compute paid once; retrieval approaches zero marginal cost.' },
+        { label: 'C-suite headline', value: '"We eliminated the annotation budget, the vector database line item, and the egress bill — with one infrastructure decision. DDN INFINIA is the search stack and the data pipeline."' },
       ]
     },
     {
@@ -65,7 +65,7 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
       iconColor: '#f87171',
       badge: 'GPU Utilization ~40% → >85%',
       badgeBg: 'bg-red-500/10 border-red-500/30 text-red-400',
-      summary: (<>Multimodal inference (CLIP + BLIP + BART) runs <strong>co-located with data</strong> — no data movement, no prefetch queues. Storage ceases to be the AI pipeline's gatekeeper. GPU utilization climbs from ~40% to sustained <strong>&gt;85%</strong>.</>),
+      summary: (<>NVIDIA VSS inference runs <strong>co-located with PB-scale video</strong> on DDN INFINIA — no data movement, no prefetch latency. GPUs stop waiting on storage. Utilization climbs from ~40% to <strong>&gt;85% sustained</strong>. Fine-tuning dataset curation — once weeks of work — is now a query.</>),
       icon: (
         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" />
@@ -76,11 +76,11 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
         </svg>
       ),
       details: [
-        { label: 'GPU starvation eliminated', value: 'With cloud storage, GPUs wait on I/O for 30–40% of every inference cycle. INFINIA co-located inference removes the bottleneck — sustained >85% GPU utilization.' },
-        { label: 'Sub-2s TTFT', value: 'CLIP embedding lookup is a metadata read on INFINIA — not a GPU compute event. TTFT for multimodal semantic queries drops to sub-2 seconds end-to-end.' },
-        { label: 'Zero rebalancing at scale', value: 'Adding 100TB of new video requires zero rebalancing, zero re-sharding, zero cluster restart. INFINIA\'s flat namespace scales linearly — no storage ceiling.' },
-        { label: 'One architecture for all', value: 'Single INFINIA deployment serves ingest, CLIP embedding generation, semantic retrieval, and archive. No pipeline hand-offs, no storage tier hand-offs, no bottlenecks.' },
-        { label: 'C-suite headline', value: '"Every GPU generates AI output at rated speed. DDN INFINIA ensures it is never waiting on storage — at any fleet size, at any data scale."' },
+        { label: 'GPU starvation eliminated', value: 'Cloud storage forces GPUs to idle 30–40% of every inference cycle waiting on I/O. INFINIA co-location collapses that overhead — GPUs run at sustained >85% utilization. More throughput from the same fleet, zero additional capex.' },
+        { label: 'Fine-tuning pipeline acceleration', value: 'Edge-case dataset curation for model retraining is now a query, not a project. AI teams issue NLP queries, retrieve curated clips in seconds, and feed directly into training pipelines — all without moving data off INFINIA.' },
+        { label: 'NVIDIA VSS blueprint native', value: "Built on NVIDIA's Video Search and Summarization (VSS) reference architecture. CLIP and BLIP inference run where the data lives — co-located on INFINIA. No data pipeline to maintain, no cross-system latency, no storage ceiling as the video estate grows." },
+        { label: 'Linear scale — no ceiling', value: "Adding 100TB of new video requires zero rebalancing, zero re-sharding, zero downtime. INFINIA's flat namespace scales with the GPU fleet — every new GPU gets full I/O bandwidth from day one." },
+        { label: 'C-suite headline', value: '"Our GPU fleet now runs at the speed it was purchased to run. DDN INFINIA removed the storage bottleneck costing us 40% of AI compute — at every scale, every fleet size."' },
       ]
     },
   ]
@@ -100,11 +100,12 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
           <span className="eyebrow text-ddn-red block">Strategic Value Framework</span>
           <h2 className="heading-2 mt-2 mb-3">Video Semantic Search — Business Case</h2>
           <p className="body-text max-w-3xl mx-auto">
-            This application proves that DDN INFINIA turns an unstructured media archive —{' '}
-            <strong>thousands of videos, images, and documents</strong> — into a queryable intelligence
-            layer, in real time, with no re-indexing. Every number below is derived from{' '}
-            <strong>architecture, not modelling</strong>. When any enterprise AI team asks{' '}
-            <em>"what does this mean at our scale?"</em> — these three cards answer it.
+            Built on the <strong>NVIDIA Video Search &amp; Summarization (VSS) Blueprint</strong>,
+            this demo proves that DDN INFINIA transforms <strong>petabytes of dark, untagged enterprise video</strong>{' '}
+            into a real-time queryable intelligence layer — no re-indexing, no annotation pipeline, no vector database.
+            The enterprise use case it solves:{' '}
+            <strong>AI teams hunting edge cases for model fine-tuning</strong> — a process that costs weeks and millions today —
+            reduced to a single NLP query, answered in seconds.
           </p>
         </div>
 
