@@ -160,7 +160,7 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: columns[open].iconColor + '18', color: columns[open].iconColor }}>
                 {columns[open].icon}
               </div>
-              <h3 className={`text-xl font-bold ${columns[open].accent}`}>{columns[open].label} — Extrapolated</h3>
+              <h3 className={`text-xl font-bold ${columns[open].accent}`}>{columns[open].label}</h3>
             </div>
             <div className="divide-y divide-neutral-100">
               {columns[open].details.map((d, j) => (
@@ -189,7 +189,7 @@ function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
                 <span className="w-2 h-2 rounded-full bg-ddn-red inline-block" />
                 Build.DDN:VSS
               </div>
-              <span className="text-neutral-400 font-normal">Multimodal semantic search across video, images &amp; documents</span>
+              <span className="text-neutral-400 font-normal">Semantic search across video</span>
             </div>
             <div className="px-5 py-4 border-r border-neutral-200">
               <strong className="text-neutral-800">1 analyst replaces a 3-person tagging team.</strong> Natural-language query across PB-scale media returns results in under 2 seconds. Dead-weight unstructured data becomes an active intelligence asset.
