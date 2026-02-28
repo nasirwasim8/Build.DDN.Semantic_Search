@@ -1,9 +1,230 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Image, Video, FileText, Zap, Database, ArrowRight, DollarSign, TrendingUp, Trophy } from 'lucide-react'
+import { Image, Video, FileText, Zap, Database, ArrowRight, DollarSign, TrendingUp, Trophy, ChevronDown } from 'lucide-react'
 
 interface AboutPageProps {
   onStartDemo?: () => void
+}
+
+// ─── VSS Strategic Outcomes Section ──────────────────────────────────────────
+function VssOutcomesSection({ onStartDemo }: { onStartDemo?: () => void }) {
+  const [open, setOpen] = useState<number | null>(null)
+
+  const columns = [
+    {
+      label: 'Business Outcome',
+      accent: 'text-emerald-400',
+      border: 'border-emerald-500/30',
+      bg: 'bg-emerald-500/5',
+      iconColor: '#10b981',
+      badge: '1 Analyst = 3-Person Tagging Team',
+      badgeBg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
+      summary: (<>A static media archive becomes a <strong>live intelligence layer</strong>. One analyst, one natural-language query — finds the needle in a PB-scale haystack <strong>in under 2 seconds</strong>, vs. 3 engineers manually tagging for weeks.</>),
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+          <polyline points="16 7 22 7 22 13" />
+        </svg>
+      ),
+      details: [
+        { label: 'Demo proof', value: 'Type "person near a crosswalk at night" — no tags, no Boolean query — DDN INFINIA returns exact frames in sub-2s. CLIP embedding lookup is a metadata read, not a compute event.' },
+        { label: 'Operational leverage', value: 'One analyst replaces a 3-person content ops team. A media archive that was dead weight becomes an active, searchable, auditable intelligence asset.' },
+        { label: 'At 1M assets', value: "DDN's flat namespace vs. hierarchical S3 means the difference between a 2-second query and a 2-minute wait. Semantic search vs keyword search isn't UX — it's operational leverage." },
+        { label: 'Unstructured data ROI', value: 'Every petabyte of video, images, and documents previously inaccessible by keyword is now queryable. Dead-weight storage becomes a monetizable, AI-ready asset.' },
+        { label: 'C-suite headline', value: '"We turned our entire unstructured media estate into a queryable intelligence layer — without a single line of SQL or a manual tagging budget."' },
+      ]
+    },
+    {
+      label: 'Financial Outcome',
+      accent: 'text-orange-500',
+      border: 'border-orange-500/30',
+      bg: 'bg-orange-500/5',
+      iconColor: '#f97316',
+      badge: '$2M–$4M/yr Search Stack Eliminated',
+      badgeBg: 'bg-orange-500/10 border-orange-500/30 text-orange-500',
+      summary: (<>Eliminates purpose-built search infrastructure (Elasticsearch, cold-storage tiers, S3 egress). A 10PB media estate served from INFINIA's flat namespace — <strong>zero tiering tax, zero egress, no vector DB purchase.</strong></>),
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+      ),
+      details: [
+        { label: 'Vector DB deferred', value: '$500K–$2M purpose-built vector database deployment avoided. CLIP embeddings stored natively as object metadata in INFINIA — no separate vector store needed.' },
+        { label: 'Egress elimination', value: 'Every inference retrieval pass over S3 carries an egress cost. INFINIA co-location removes this entirely — estimated $800K–$3M/yr at enterprise scale.' },
+        { label: 'Embedding reuse', value: 'CLIP vectors stored once as INFINIA metadata = zero marginal cost on repeat queries. Compute already paid for; every re-use is effectively free retrieval.' },
+        { label: 'Headcount reduction', value: 'Manual tagging and annotation teams no longer needed at scale. $800K–$3M/yr operational savings — redirected to model training and product development.' },
+        { label: 'C-suite headline', value: '"We replaced a $2M search stack and a 5-person annotation team with one storage architecture and a natural language interface."' },
+      ]
+    },
+    {
+      label: 'AI Infra Implications',
+      accent: 'text-red-400',
+      border: 'border-red-500/30',
+      bg: 'bg-red-500/5',
+      iconColor: '#f87171',
+      badge: 'GPU Utilization ~40% → >85%',
+      badgeBg: 'bg-red-500/10 border-red-500/30 text-red-400',
+      summary: (<>Multimodal inference (CLIP + BLIP + BART) runs <strong>co-located with data</strong> — no data movement, no prefetch queues. Storage ceases to be the AI pipeline's gatekeeper. GPU utilization climbs from ~40% to sustained <strong>&gt;85%</strong>.</>),
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" />
+          <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
+          <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
+          <line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" />
+          <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" />
+        </svg>
+      ),
+      details: [
+        { label: 'GPU starvation eliminated', value: 'With cloud storage, GPUs wait on I/O for 30–40% of every inference cycle. INFINIA co-located inference removes the bottleneck — sustained >85% GPU utilization.' },
+        { label: 'Sub-2s TTFT', value: 'CLIP embedding lookup is a metadata read on INFINIA — not a GPU compute event. TTFT for multimodal semantic queries drops to sub-2 seconds end-to-end.' },
+        { label: 'Zero rebalancing at scale', value: 'Adding 100TB of new video requires zero rebalancing, zero re-sharding, zero cluster restart. INFINIA\'s flat namespace scales linearly — no storage ceiling.' },
+        { label: 'One architecture for all', value: 'Single INFINIA deployment serves ingest, CLIP embedding generation, semantic retrieval, and archive. No pipeline hand-offs, no storage tier hand-offs, no bottlenecks.' },
+        { label: 'C-suite headline', value: '"Every GPU generates AI output at rated speed. DDN INFINIA ensures it is never waiting on storage — at any fleet size, at any data scale."' },
+      ]
+    },
+  ]
+
+  return (
+    <section className="bg-surface-primary px-6 py-16">
+      <div className="max-w-[1280px] mx-auto">
+
+        {/* Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/40 bg-orange-500/10 mb-4">
+            <svg className="w-3.5 h-3.5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            <span className="text-orange-500 text-xs font-bold tracking-widest uppercase">GTC 2026 Showcase</span>
+          </div>
+          <span className="eyebrow text-ddn-red block">Strategic Value Framework</span>
+          <h2 className="heading-2 mt-2 mb-3">Video Semantic Search — Business Case</h2>
+          <p className="body-text max-w-3xl mx-auto">
+            This application proves that DDN INFINIA turns an unstructured media archive —{' '}
+            <strong>thousands of videos, images, and documents</strong> — into a queryable intelligence
+            layer, in real time, with no re-indexing. Every number below is derived from{' '}
+            <strong>architecture, not modelling</strong>. When any enterprise AI team asks{' '}
+            <em>"what does this mean at our scale?"</em> — these three cards answer it.
+          </p>
+        </div>
+
+        {/* ── 3-Column Summary Row ─────────────────────────────────────────────── */}
+        <div className="grid md:grid-cols-3 gap-5 mb-6">
+          {columns.map((col, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`card p-6 border ${col.border} ${col.bg} cursor-pointer group`}
+              onClick={() => setOpen(open === i ? null : i)}
+            >
+              {/* Icon + Label */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: col.iconColor + '18', color: col.iconColor }}>
+                    {col.icon}
+                  </div>
+                  <span className={`text-lg font-bold leading-tight ${col.accent}`}>{col.label}</span>
+                </div>
+                <ChevronDown
+                  className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${col.accent} ${open === i ? 'rotate-180' : ''}`}
+                />
+              </div>
+
+              {/* Badge */}
+              <div className={`inline-block px-3 py-1 rounded-full border text-sm font-bold mb-3 ${col.badgeBg}`}>
+                {col.badge}
+              </div>
+
+              {/* Summary */}
+              <p className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{col.summary}</p>
+
+              <p className={`text-sm mt-4 font-semibold ${col.accent}`}>
+                {open === i ? '▲ Collapse detail' : '▼ See extrapolated numbers'}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── Expandable Detail Panel ───────────────────────────────────────────── */}
+        {open !== null && (
+          <motion.div
+            key={open}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className={`card p-6 border ${columns[open].border} mb-6`}
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: columns[open].iconColor + '18', color: columns[open].iconColor }}>
+                {columns[open].icon}
+              </div>
+              <h3 className={`text-xl font-bold ${columns[open].accent}`}>{columns[open].label} — Extrapolated</h3>
+            </div>
+            <div className="divide-y divide-neutral-100">
+              {columns[open].details.map((d, j) => (
+                <div key={j} className="py-4 grid md:grid-cols-[220px_1fr] gap-3">
+                  <span className="text-sm font-bold uppercase tracking-wide text-neutral-500">{d.label}</span>
+                  <span className="text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{d.value}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ── One-Line Summary Row (the GTC table row) ─────────────────────────── */}
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 overflow-hidden">
+          {/* Header row */}
+          <div className="grid grid-cols-4 bg-neutral-100 border-b border-neutral-200 text-xs font-bold uppercase tracking-wider text-neutral-500">
+            <div className="px-5 py-3 border-r border-neutral-200">Demo</div>
+            <div className="px-5 py-3 border-r border-neutral-200">Business Outcome</div>
+            <div className="px-5 py-3 border-r border-neutral-200">Financial Outcome</div>
+            <div className="px-5 py-3">AI Infra Implications</div>
+          </div>
+          {/* Data row */}
+          <div className="grid grid-cols-4 text-xs leading-relaxed text-neutral-600">
+            <div className="px-5 py-4 border-r border-neutral-200 font-semibold text-neutral-800">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="w-2 h-2 rounded-full bg-ddn-red inline-block" />
+                Build.DDN:VSS
+              </div>
+              <span className="text-neutral-400 font-normal">Multimodal semantic search across video, images &amp; documents</span>
+            </div>
+            <div className="px-5 py-4 border-r border-neutral-200">
+              <strong className="text-neutral-800">1 analyst replaces a 3-person tagging team.</strong> Natural-language query across PB-scale media returns results in under 2 seconds. Dead-weight unstructured data becomes an active intelligence asset.
+            </div>
+            <div className="px-5 py-4 border-r border-neutral-200">
+              Eliminates <strong className="text-neutral-800">$500K–$2M vector DB deployment</strong>, removes S3 egress costs on every inference pass, and defers annotation headcount ($800K–$3M/yr). CLIP embedding reuse = zero marginal cost on repeat queries.
+            </div>
+            <div className="px-5 py-4">
+              GPU utilization: <strong className="text-neutral-800">~40% → &gt;85% sustained</strong> (co-located inference eliminates I/O starvation). Sub-2s TTFT. Adding 100TB of video requires zero rebalancing — DDN scales linearly with the data estate.
+            </div>
+          </div>
+        </div>
+
+        {/* ── CTA Button ────────────────────────────────────────────────────────── */}
+        {onStartDemo && (
+          <div className="text-center mt-8">
+            <button
+              onClick={onStartDemo}
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300"
+              style={{
+                background: 'linear-gradient(135deg, #ED2738 0%, #76B900 100%)',
+                color: 'white',
+                boxShadow: '0 8px 30px rgba(237, 39, 56, 0.25)'
+              }}
+            >
+              <span>See It In Action</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <p className="text-sm text-neutral-400 mt-3">Live demonstration with AI-powered semantic search</p>
+          </div>
+        )}
+
+      </div>
+    </section>
+  )
 }
 
 export default function AboutPage({ onStartDemo }: AboutPageProps) {
@@ -489,6 +710,11 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ════════════════════════════════════════════════════════════════════════
+           VSS Strategic Outcomes  (inserted before Problem Statement)
+       ════════════════════════════════════════════════════════════════════════ */}
+      <VssOutcomesSection onStartDemo={onStartDemo} />
 
       {/* Problem Statement Section */}
       <section
@@ -1191,34 +1417,7 @@ export default function AboutPage({ onStartDemo }: AboutPageProps) {
   )
 }
 
-function StatCard({ value, label, description }: { value: string; label: string; description: string }) {
-  return (
-    <div
-      className="p-5 rounded-xl text-center relative overflow-hidden group"
-      style={{
-        background: 'rgba(255, 255, 255, 0.05)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        transition: 'all 200ms ease'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'
-        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'
-        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
-      }}
-    >
-      <div
-        className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white"
-      >
-        {value}
-      </div>
-      <div className="text-white/80 font-medium text-sm">{label}</div>
-      <div className="text-white/40 text-xs mt-1">{description}</div>
-    </div>
-  )
-}
+
 
 function StatCardWithIcon({
   icon,
