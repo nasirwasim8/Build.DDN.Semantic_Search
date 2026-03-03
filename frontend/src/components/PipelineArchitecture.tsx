@@ -400,11 +400,11 @@ export default function PipelineArchitecture() {
                     )}
                 </div>
 
-                {/* Write arrows */}
+                {/* Write arrows (ingestion → INFINIA) */}
                 <div className="flex justify-around px-20 my-3">
                     {[...Array(5)].map((_, i) => (
-                        <div key={i} className="flex flex-col items-center gap-0.5 text-green-400">
-                            <div className="w-px h-6 bg-green-200" />
+                        <div key={i} className="flex flex-col items-center gap-0.5" style={{ color: '#FF8D28' }}>
+                            <div className="w-px h-6" style={{ background: '#FF8D2840' }} />
                             <svg className="w-3 h-3" viewBox="0 0 12 8" fill="currentColor">
                                 <path d="M6 8 L0 0 L12 0 Z" />
                             </svg>
@@ -413,8 +413,8 @@ export default function PipelineArchitecture() {
                 </div>
 
                 {/* ── DDN INFINIA LAYER ──────────────────────────────────────────────── */}
-                <div className="rounded-2xl border-2 border-green-200 p-5 mb-3"
-                    style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%)' }}>
+                <div className="rounded-2xl p-5 mb-3"
+                    style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', border: '2px solid #FF8D2840' }}>
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                             <Icons.Database />
@@ -423,8 +423,8 @@ export default function PipelineArchitecture() {
                                 <p className="text-[11px] text-neutral-500">S3-compatible · Flat namespace · Unlimited object metadata · Wire-speed retrieval</p>
                             </div>
                         </div>
-                        <span className="text-[11px] font-semibold text-green-600 flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-green-500" />
+                        <span className="text-[11px] font-semibold flex items-center gap-1.5" style={{ color: '#FF8D28' }}>
+                            <span className="w-2 h-2 rounded-full" style={{ background: '#FF8D28' }} />
                             All AI intelligence co-located with raw data
                         </span>
                     </div>
@@ -442,21 +442,21 @@ export default function PipelineArchitecture() {
                             </div>
                         ))}
                     </div>
-                    <div className="mt-3 pt-3 border-t border-green-100 text-[11px] text-neutral-500 flex flex-wrap gap-x-6 gap-y-1">
+                    <div className="mt-3 pt-3 border-t text-[11px] text-neutral-500 flex flex-wrap gap-x-6 gap-y-1" style={{ borderColor: '#FF8D2830' }}>
                         <span>📌 JSON sidecar = the vector store. No Pinecone. No Weaviate. No Milvus.</span>
                         <span>📌 S3 object headers = lightweight graph edge index</span>
                         <span>📌 FAISS reads directly from INFINIA — no sync pipeline, no external service</span>
                     </div>
                 </div>
 
-                {/* Read arrows */}
+                {/* Read arrows (INFINIA → retrieval) */}
                 <div className="flex justify-around px-20 mb-3">
                     {[...Array(5)].map((_, i) => (
-                        <div key={i} className="flex flex-col items-center gap-0.5 text-blue-400">
+                        <div key={i} className="flex flex-col items-center gap-0.5" style={{ color: '#FF8D28' }}>
                             <svg className="w-3 h-3" viewBox="0 0 12 8" fill="currentColor">
                                 <path d="M6 0 L12 8 L0 8 Z" />
                             </svg>
-                            <div className="w-px h-6 bg-blue-200" />
+                            <div className="w-px h-6" style={{ background: '#FF8D2840' }} />
                         </div>
                     ))}
                 </div>
